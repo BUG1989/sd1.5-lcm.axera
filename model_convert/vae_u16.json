@@ -1,0 +1,60 @@
+{
+  "model_type": "ONNX",
+  "npu_mode": "NPU3",
+  "onnx_opt": {
+    // disable onnx optimization. type: bool. required: false. default: false.
+    "disable_onnx_optimization": false,
+    // enable onnx simplify by https://github.com/daquexian/onnx-simplifier. type: bool. required: false. default: false.
+    "enable_onnxsim": false,
+    // enable model check. type: bool. required: false. default: false.
+    "model_check": false,
+    // disable transformation check. type: bool. required: false. default: false.
+    "disable_transformation_check": false,
+    // save tensors data to optimize memory footprint. type: bool. required: false. default: false.
+    "save_tensors_data": false
+  },
+  "quant": {
+    "input_configs": [
+      {
+        "tensor_name": "DEFAULT",
+        "calibration_dataset": "./calib_data_vae/data.tar",
+        "calibration_size": 4,
+        "calibration_format": "NumpyObject"
+      }
+    ],
+    "calibration_method": "MinMax",
+    "precision_analysis": true,
+    "precision_analysis_method": "EndToEnd",
+    "layer_configs": [
+      {
+        "start_tensor_names": [
+          "DEFAULT"
+        ],
+        "end_tensor_names": [
+          "DEFAULT"
+        ],
+        "data_type": "U16"
+      },
+      // {
+      //   "op_type": "GroupNormalization",
+      //   "data_type": "U8",
+      //   "output_data_type": "U8"
+      // },
+      // {
+      //   "op_type": "Conv",
+      //   "data_type": "U8"
+      // }
+    ]
+  },
+  "input_processors": [
+    {
+      "tensor_name": "DEFAULT",
+      "tensor_format": "AutoColorSpace",
+      "tensor_layout": "NCHW"
+    }
+  ],
+  "compiler": {
+    "check": 2,
+    "max_dynamic_batch_size": 1
+  }
+}

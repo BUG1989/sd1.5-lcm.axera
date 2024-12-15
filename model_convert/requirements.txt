@@ -1,0 +1,8 @@
+protobuf==3.20.3
+onnx==1.16.0
+onnxsim==0.4.36
+torch==2.1.2
+transformers==4.45.0
+peft
+diffusers
+numpy<=2.0.0
