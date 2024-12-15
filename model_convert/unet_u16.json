@@ -5,7 +5,7 @@
     "input_configs": [
       {
         "tensor_name": "DEFAULT",
-        "calibration_dataset": "./calib_data/data.tar",
+        "calibration_dataset": "./calib_data_unet/data.tar",
         "calibration_size": 4,
         "calibration_format": "NumpyObject"
       }
@@ -33,7 +33,6 @@
     }
   ],
   "compiler": {
-    "check": 2,
-    "max_dynamic_batch_size": 1
+    "check": 0
   }
 }
